@@ -23,5 +23,5 @@ fn main() {
 
     let p4 = p1.mixup(p3);
 
-    println!("{}, {}", p4.x, p4.y)
+    println!("p4.x is: {}, p4.y is: {}", p4.x, p4.y)
 }
