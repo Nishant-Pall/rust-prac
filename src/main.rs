@@ -16,9 +16,12 @@ fn main() {
 
     // let error_codes = [400, 404, 500];
     // let not_found = error_codes[1];
-    my_func();
+    let sum = my_func(10, 20);
+    println!("{}", sum);
 }
 
-fn my_func() {
-    println!("function called")
+fn my_func(x: i32, y: i32) -> i32 {
+    println!("{} + {} = ", x, y);
+    // last line in function is return always, and we dont need to add semicolons on return statements
+    x + y
 }
