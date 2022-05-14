@@ -212,26 +212,76 @@
 //     let amount = match_in_cents(Coin::Quarter(UsState::Alabama));
 // }
 
+// fn main() {
+//     let five = Some(5);
+//     let six = plus_one(five);
+//     let none = plus_one(None);
+
+//     println!("{:?}", six);
+//     println!("{:?}", none);
+
+//     let some_value = Some(3);
+
+//     if let Some(3) = some_value {
+//         println!("Three")
+//     }
+// }
+
+// fn plus_one(x: Option<i32>) -> Option<i32> {
+//     match x {
+//         None => None,
+//         Some(i) => Some(i + 1),
+//         // if pattern doesnt match above two then execute this one
+//         _ => None,
+//     }
+// }
+
+// fn main() {
+//     // let a = [1, 2, 3];
+//     // let mut v: Vec<i32> = Vec::new();
+//     // v.push(1);
+//     // v.push(2);
+//     // v.push(3);
+
+//     // calling vec macro to initialize vector
+//     let v2 = vec![1, 2, 3, 4, 5];
+
+//     // we can use out of bounds index, and it'll give runtime error not compile time
+//     // to avoid that we use get method
+//     let third = &v2[2];
+
+//     match v2.get(2) {
+//         Some(third) => println!("Third element is: {}", third),
+//         None => println!("There is no third element"),
+//     }
+
+//     let mut v = vec![1, 2, 3, 4, 5];
+
+//     for i in &mut v {
+//         *i += 50;
+//         // println!("{}", i)
+//     }
+
+//     for i in &mut v {
+//         println!("{}", i)
+//     }
+// }
+
 fn main() {
-    let five = Some(5);
-    let six = plus_one(five);
-    let none = plus_one(None);
-
-    println!("{:?}", six);
-    println!("{:?}", none);
-
-    let some_value = Some(3);
-
-    if let Some(3) = some_value {
-        println!("Three")
+    enum SpreadSheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
     }
-}
 
-fn plus_one(x: Option<i32>) -> Option<i32> {
-    match x {
-        None => None,
-        Some(i) => Some(i + 1),
-        // if pattern doesnt match above two then execute this one
-        _ => None,
+    let row = vec![
+        SpreadSheetCell::Int(3),
+        SpreadSheetCell::Float(420.69),
+        SpreadSheetCell::Text(String::from("Blue")),
+    ];
+
+    match &row[0] {
+        SpreadSheetCell::Int(i) => println!("{}", i),
+        _ => println!("Not an integer"),
     }
 }
