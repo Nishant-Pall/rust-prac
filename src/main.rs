@@ -97,49 +97,87 @@
 
 // }
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
+// #[derive(Debug)]
+// struct Rectangle {
+//     width: u32,
+//     height: u32,
+// }
+
+// // impl consists of methods on struct
+// impl Rectangle {
+//     fn area(&self) -> u32 {
+//         self.width * self.height
+//     }
+
+//     fn can_hold(&self, rect: &Rectangle) -> bool {
+//         self.width > rect.width && self.height > rect.height
+//     }
+// }
+
+// // we can have as many impl blocks for the same struct
+// impl Rectangle {
+//     // associative functions (not tied to the struct) dont take in &self keyword
+//     fn square(size: u32) -> Rectangle {
+//         Rectangle {
+//             width: size,
+//             height: size,
+//         }
+//     }
+// }
+
+// fn main() {
+//     let rect1 = Rectangle {
+//         width: 20,
+//         height: 40,
+//     };
+
+//     let rect2 = Rectangle {
+//         width: 40,
+//         height: 40,
+//     };
+
+//     let rect3 = Rectangle::square(25);
+//     println!("{:#?}", rect3);
+
+//     println!("{:#?}", rect1);
+//     println!("{}", rect1.area());
+//     println!("{}", rect1.can_hold(&rect2));
+// }
+
+enum IpAddrKind {
+    V4(String),
+    V6(String),
 }
 
-// impl consists of methods on struct
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-
-    fn can_hold(&self, rect: &Rectangle) -> bool {
-        self.width > rect.width && self.height > rect.height
-    }
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
 }
 
-// we can have as many impl blocks for the same struct
-impl Rectangle {
-    // associative functions (not tied to the struct) dont take in &self keyword
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
-            width: size,
-            height: size,
-        }
+impl Message {
+    fn some_function() {
+        println!("Lez go")
     }
 }
 
 fn main() {
-    let rect1 = Rectangle {
-        width: 20,
-        height: 40,
-    };
+    let four = IpAddrKind::V4;
+    let six = IpAddrKind::V6;
 
-    let rect2 = Rectangle {
-        width: 40,
-        height: 40,
-    };
+    let localhost = IpAddrKind::V4(String::from("127.0.0.1"));
 
-    let rect3 = Rectangle::square(25);
-    println!("{:#?}", rect3);
+    // enum Option<T> {
+    //     Some(T),
+    //     None,
+    // }
 
-    println!("{:#?}", rect1);
-    println!("{}", rect1.area());
-    println!("{}", rect1.can_hold(&rect2));
+    // x can either be 5 or null
+    // we cant add optional type with integer type
+    let x = 5;
+    let y = Some(5);
+    // let y = None;
+
+    let sum = x + y.unwrap_or(0);
 }
