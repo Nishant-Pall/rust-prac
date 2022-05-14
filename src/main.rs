@@ -286,22 +286,39 @@
 //     }
 // }
 
+// fn main() {
+//     let s1 = String::from("Hello, ");
+//     let s2 = String::from("World");
+
+//     // let s3 = s1 + &s2;
+//     // format! macro doesnt take ownerships
+//     let s3 = format!("{}{}", s1, s2);
+//     println!("{}", s3);
+
+//     let hello = String::from("Hello");
+
+//     for c in hello.chars() {
+//         println!("{}", c)
+//     }
+
+//     for c in hello.bytes() {
+//         println!("{}", c)
+//     }
+// }
+
+use std::{collections::HashMap, hash::Hash};
+
 fn main() {
-    let s1 = String::from("Hello, ");
-    let s2 = String::from("World");
+    let yellow = String::from("Yellow");
+    let blue = String::from("Blue");
 
-    // let s3 = s1 + &s2;
-    // format! macro doesnt take ownerships
-    let s3 = format!("{}{}", s1, s2);
-    println!("{}", s3);
+    let mut scores = HashMap::new();
 
-    let hello = String::from("Hello");
+    scores.insert(blue, 100);
+    scores.insert(yellow, 50);
 
-    for c in hello.chars() {
-        println!("{}", c)
-    }
+    let team_name = String::from("Blue");
+    let score = scores.get(&team_name);
 
-    for c in hello.bytes() {
-        println!("{}", c)
-    }
+    println!("{}", score)
 }
