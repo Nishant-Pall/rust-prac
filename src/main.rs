@@ -320,5 +320,15 @@ fn main() {
     let team_name = String::from("Blue");
     let score = scores.get(&team_name);
 
-    println!("{:?}", score)
+    let text = "Hello world wonderful world";
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        // if word doesnt exist, it'll enter the word into the map and default the value to 0
+        // or it'll get the mutable reference onto which we can perform operations
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}", map);
 }
