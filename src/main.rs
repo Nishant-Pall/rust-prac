@@ -1,27 +1,58 @@
-struct Point<T, U> {
-    x: T,
-    y: U,
+pub struct NewsArticle {
+    pub headline: String,
+    pub author: String,
+    pub content: String,
 }
 
-impl<T, U> Point<T, U> {
-    fn mixup<V, W>(self, other: Point<V, W>) -> Point<T, W> {
-        Point {
-            x: self.x,
-            y: other.y,
-        }
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{} by {}", self.headline, self.author)
+    }
+    fn summarize_author(&self) -> String {
+        format!("{}", self.author)
+    }
+}
+
+pub struct Tweet {
+    pub content: String,
+    pub username: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+    fn summarize_author(&self) -> String {
+        format!("{}", self.username)
+    }
+}
+
+pub trait Summary {
+    fn summarize_author(&self) -> String;
+    fn summarize(&self) -> String {
+        // default implementation
+        String::from("(Read more...)")
     }
 }
 
 fn main() {
-    let p1 = Point { x: 5, y: 10 };
-    let p2 = Point { x: 5.0, y: 10.0 };
-
-    let p3 = Point {
-        x: "Hello",
-        y: "World",
+    let tweet = Tweet {
+        content: String::from("Hello World"),
+        username: String::from("@johndoe"),
+        reply: false,
+        retweet: false,
     };
 
-    let p4 = p1.mixup(p3);
+    let article = NewsArticle {
+        headline: String::from("The sky is falling"),
+        content: String::from("Yes, the sky is falling"),
+        author: String::from("John Doe"),
+    };
 
-    println!("p4.x is: {}, p4.y is: {}", p4.x, p4.y)
+    println!("Tweet Summary: {}", tweet.summarize());
+    println!("News Summary: {}", article.summarize());
+    println!("{}", article.summarize_author());
+    println!("{}", tweet.summarize_author());
 }
