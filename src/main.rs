@@ -320,5 +320,5 @@ fn main() {
     let team_name = String::from("Blue");
     let score = scores.get(&team_name);
 
-    println!("{}", score)
+    println!("{:?}", score)
 }
