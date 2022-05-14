@@ -296,4 +296,12 @@ fn main() {
     println!("{}", s3);
 
     let hello = String::from("Hello");
+
+    for c in hello.chars() {
+        println!("{}", c)
+    }
+
+    for c in hello.bytes() {
+        println!("{}", c)
+    }
 }
