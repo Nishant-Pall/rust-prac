@@ -267,21 +267,33 @@
 //     }
 // }
 
+// fn main() {
+//     enum SpreadSheetCell {
+//         Int(i32),
+//         Float(f64),
+//         Text(String),
+//     }
+
+//     let row = vec![
+//         SpreadSheetCell::Int(3),
+//         SpreadSheetCell::Float(420.69),
+//         SpreadSheetCell::Text(String::from("Blue")),
+//     ];
+
+//     match &row[0] {
+//         SpreadSheetCell::Int(i) => println!("{}", i),
+//         _ => println!("Not an integer"),
+//     }
+// }
+
 fn main() {
-    enum SpreadSheetCell {
-        Int(i32),
-        Float(f64),
-        Text(String),
-    }
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("World");
 
-    let row = vec![
-        SpreadSheetCell::Int(3),
-        SpreadSheetCell::Float(420.69),
-        SpreadSheetCell::Text(String::from("Blue")),
-    ];
+    // let s3 = s1 + &s2;
+    // format! macro doesnt take ownerships
+    let s3 = format!("{}{}", s1, s2);
+    println!("{}", s3);
 
-    match &row[0] {
-        SpreadSheetCell::Int(i) => println!("{}", i),
-        _ => println!("Not an integer"),
-    }
+    let hello = String::from("Hello");
 }
