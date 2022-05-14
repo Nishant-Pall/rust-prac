@@ -306,29 +306,78 @@
 //     }
 // }
 
-use std::{collections::HashMap, hash::Hash};
+// use std::{collections::HashMap, hash::Hash};
 
+// fn main() {
+//     let yellow = String::from("Yellow");
+//     let blue = String::from("Blue");
+
+//     let mut scores = HashMap::new();
+
+//     scores.insert(blue, 100);
+//     scores.insert(yellow, 50);
+
+//     let team_name = String::from("Blue");
+//     let score = scores.get(&team_name);
+
+//     let text = "Hello world wonderful world";
+//     let mut map = HashMap::new();
+
+//     for word in text.split_whitespace() {
+//         // if word doesnt exist, it'll enter the word into the map and default the value to 0
+//         // or it'll get the mutable reference onto which we can perform operations
+//         let count = map.entry(word).or_insert(0);
+//         *count += 1;
+//     }
+
+//     println!("{:?}", map);
+// }
+
+use std::fs::{self, File};
+use std::io;
+use std::io::ErrorKind;
+use std::io::Read;
 fn main() {
-    let yellow = String::from("Yellow");
-    let blue = String::from("Blue");
+    // panic!("Crash and burn")
 
-    let mut scores = HashMap::new();
+    // enum Result<T, E> {
+    //     Ok(T),
+    //     Err(E),
+    // }
 
-    scores.insert(blue, 100);
-    scores.insert(yellow, 50);
+    // let f = File::open("hello.txt").expect("Failed to open");
 
-    let team_name = String::from("Blue");
-    let score = scores.get(&team_name);
+    // let f = match f {
+    //     Ok(file) => file,
+    //     Err(error) => match error.kind() {
+    //         ErrorKind::NotFound => match File::create("hello.txt") {
+    //             Ok(fc) => fc,
+    //             Err(e) => panic!("Problem creating file:{}", e),
+    //         },
+    //         other_error => panic!("Problem opening the file: {}", other_error),
+    //     },
+    // };
 
-    let text = "Hello world wonderful world";
-    let mut map = HashMap::new();
+    // let f = match f {
+    //     Ok(file) => file,
+    //     Err(error) => panic!("Error opening file: {}", error),
+    // };
+}
 
-    for word in text.split_whitespace() {
-        // if word doesnt exist, it'll enter the word into the map and default the value to 0
-        // or it'll get the mutable reference onto which we can perform operations
-        let count = map.entry(word).or_insert(0);
-        *count += 1;
-    }
+// ERROR PROPORGATION
+fn read_username_from_file() -> Result<String, io::Error> {
+    // let mut s = String::new();
+    // File::open("hello.txt")?.read_to_string(&mut s)?;
+    // Ok(s);
 
-    println!("{:?}", map);
+    // let mut f = match f {
+    //     Ok(file) => file,
+    //     Err(e) => return Err(e),
+    // };
+
+    // match f.read_to_string(&mut s) {
+    //     Ok(_) => Ok(s),
+    //     Err(e) => Err(e),
+    // };
+    fs::read_to_string("hello.txt")
 }
