@@ -144,40 +144,86 @@
 //     println!("{}", rect1.can_hold(&rect2));
 // }
 
-enum IpAddrKind {
-    V4(String),
-    V6(String),
-}
+// enum IpAddrKind {
+//     V4(String),
+//     V6(String),
+// }
 
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
-}
+// enum Message {
+//     Quit,
+//     Move { x: i32, y: i32 },
+//     Write(String),
+//     ChangeColor(i32, i32, i32),
+// }
 
-impl Message {
-    fn some_function() {
-        println!("Lez go")
-    }
-}
+// impl Message {
+//     fn some_function() {
+//         println!("Lez go")
+//     }
+// }
+
+// fn main() {
+//     let four = IpAddrKind::V4;
+//     let six = IpAddrKind::V6;
+
+//     let localhost = IpAddrKind::V4(String::from("127.0.0.1"));
+
+//     // enum Option<T> {
+//     //     Some(T),
+//     //     None,
+//     // }
+
+//     // x can either be 5 or null
+//     // we cant add optional type with integer type
+//     let x = 5;
+//     let y = Some(5);
+//     // let y = None;
+
+//     let sum = x + y.unwrap_or(0);
+// }
+
+// #[derive(Debug)]
+// enum UsState {
+//     Alaska,
+//     Alabama,
+//     // ...
+// }
+
+// enum Coin {
+//     Penny,
+//     Nickle,
+//     Dime,
+//     Quarter(UsState),
+// }
+
+// fn match_in_cents(coin: Coin) -> u8 {
+//     match coin {
+//         Coin::Penny => 1,
+//         Coin::Nickle => 5,
+//         Coin::Dime => 10,
+//         Coin::Quarter(state) => {
+//             println!("Quarter from {:?} state", state);
+//             25
+//         }
+//     }
+// }
+
+// fn main() {
+//     let amount = match_in_cents(Coin::Quarter(UsState::Alabama));
+// }
 
 fn main() {
-    let four = IpAddrKind::V4;
-    let six = IpAddrKind::V6;
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
 
-    let localhost = IpAddrKind::V4(String::from("127.0.0.1"));
+    println!("{:?}", six);
+    println!("{:?}", none);
+}
 
-    // enum Option<T> {
-    //     Some(T),
-    //     None,
-    // }
-
-    // x can either be 5 or null
-    // we cant add optional type with integer type
-    let x = 5;
-    let y = Some(5);
-    // let y = None;
-
-    let sum = x + y.unwrap_or(0);
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
 }
