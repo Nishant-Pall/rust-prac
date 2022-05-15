@@ -585,3 +585,12 @@
 //         part: first_sentence,
 //     };
 // }
+
+// THE RULES OF LIFETIMES IN PARAMETERS
+
+// Each parameter that is a reference gets its own lifetime parameter
+
+// If there is only one input lifetime parameter, that lifetime is assigned to all output lifetime parameters
+
+// If there are multiple input lifetime parameters, but one of them is &self or &mut self the lifetime of self is assigned
+// to all other output lifetime parameters
