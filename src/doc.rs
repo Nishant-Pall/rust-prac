@@ -594,3 +594,72 @@
 
 // If there are multiple input lifetime parameters, but one of them is &self or &mut self the lifetime of self is assigned
 // to all other output lifetime parameters
+
+// use std::fmt::Display;
+
+// fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+// where
+//     T: Display,
+// {
+//     println!("The announcement is: {}", ann);
+//     if x.len() > y.len() {
+//         x
+//     } else {
+//         y
+//     }
+// }
+
+// fn main() {}
+
+// TESTING
+
+// struct Rectangle {
+//     width: i32,
+//     height: i32,
+// }
+
+// impl Rectangle {
+//     fn can_hold(&self, other: &Rectangle) -> bool {
+//         self.width > other.width && self.height > other.height
+//     }
+// }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//     #[test]
+//     fn larger_can_hold_smaller() {
+//         let larger = Rectangle {
+//             width: 7,
+//             height: 8,
+//         };
+//         let smaller = Rectangle {
+//             width: 5,
+//             height: 1,
+//         };
+
+//         assert!(larger.can_hold(&smaller), "Larger cannot hold smaller");
+//     }
+
+//     #[test]
+//     fn smaller_cannot_hold_larger() {
+//         let larger = Rectangle {
+//             width: 7,
+//             height: 8,
+//         };
+//         let smaller = Rectangle {
+//             width: 5,
+//             height: 1,
+//         };
+//         assert!(!smaller.can_hold(&larger));
+//     }
+
+//     #[test]
+//     fn it_works() -> Result<(), String> {
+//         if 2 + 3 == 4 {
+//             Ok(())
+//         } else {
+//             Err(String::from("two plus three does not equal four"))
+//         }
+//     }
+// }
