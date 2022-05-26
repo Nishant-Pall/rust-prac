@@ -702,3 +702,147 @@
 //         }
 //     }
 // }
+
+// ***********************************************************************************
+// ***********************************************************************************
+
+// use std::thread;
+// use std::time::Duration;
+
+// struct Cacher<T>
+// where
+//     T: Fn(u32) -> u32,
+// {
+//     calculation: T,
+//     value: Option<u32>,
+// }
+
+// impl<T> Cacher<T>
+// where
+//     T: Fn(u32) -> u32,
+// {
+//     fn new(calculation: T) -> Cacher<T> {
+//         Cacher {
+//             calculation,
+//             value: None,
+//         }
+//     }
+
+//     fn value(&mut self, arg: u32) -> u32 {
+//         match self.value {
+//             Some(v) => v,
+//             None => {
+//                 let v = (self.calculation)(arg);
+//                 self.value = Some(v);
+//                 v
+//             }
+//         }
+//     }
+// }
+
+// fn simulated_expensive_calculation(intensity: u32) -> u32 {
+//     println!("Calculating slowly....");
+//     thread::sleep(Duration::from_secs(2));
+//     intensity
+// }
+
+// fn generate_workout(intensity: u32, random_number: u32) {
+//     let mut expensive_closure = Cacher::new(|num| {
+//         println!("calculating slowly...");
+//         thread::sleep(Duration::from_secs(2));
+//         num
+//     });
+
+//     if intensity < 25 {
+//         println!("Today, do {} pushups!", expensive_closure.value(intensity));
+//         println!("Next, do {} situps!", expensive_closure.value(intensity));
+//     } else {
+//         if random_number == 3 {
+//             println!("Take a break today! Remember to stay hydrated!");
+//         } else {
+//             println!(
+//                 "Today, run for {} minutes!",
+//                 expensive_closure.value(intensity)
+//             );
+//         }
+//     }
+// }
+
+// fn main() {
+//     let expensive_closure = |s| s;
+
+//     let s = expensive_closure(String::from("Hello"));
+//     // cant use integer as compiler has annotated the closure according to its calling from above expression
+//     // let n = expensive_closure(5);
+//     let intensity = 7;
+//     let random_number = 10;
+
+//     generate_workout(intensity, random_number);
+// }
+
+// ***********************************************************************************
+// ***********************************************************************************
+
+// #[derive(PartialEq, Debug)]
+
+// struct Shoe {
+//     size: u32,
+//     style: String,
+// }
+
+// fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
+//     shoes.into_iter().filter(|s| s.size == shoe_size).collect()
+// }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_by_size() {
+//         let shoes = vec![
+//             Shoe {
+//                 size: 10,
+//                 style: String::from("sneaker"),
+//             },
+//             Shoe {
+//                 size: 13,
+//                 style: String::from("sandal"),
+//             },
+//             Shoe {
+//                 size: 10,
+//                 style: String::from("boot"),
+//             },
+//         ];
+//         let in_my_size = shoes_in_my_size(shoes, 10);
+
+//         assert_eq!(
+//             in_my_size,
+//             vec![
+//                 Shoe {
+//                     size: 10,
+//                     style: String::from("sneaker")
+//                 },
+//                 Shoe {
+//                     size: 10,
+//                     style: String::from("boot")
+//                 },
+//             ]
+//         );
+//     }
+// }
+
+// fn main() {
+//     // let v1 = vec![1, 2, 3];
+
+//     // let v1_iter = v1.iter();
+
+//     // for iter in v1_iter {
+//     //     println!("{}", iter);
+//     // }
+
+//     // let v1 = vec![1, 2, 3];
+//     // let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
+
+//     // assert_eq!(v2, vec![2, 3, 4]);
+// }
