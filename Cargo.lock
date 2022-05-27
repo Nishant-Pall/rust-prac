@@ -3,5 +3,16 @@
 version = 3
 
 [[package]]
+name = "add-one"
+version = "0.1.0"
+
+[[package]]
+name = "adder"
+version = "0.1.0"
+dependencies = [
+ "add-one",
+]
+
+[[package]]
 name = "rust_prac"
 version = "0.1.0"
