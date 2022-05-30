@@ -1,31 +1,53 @@
-use std::{thread, time::Duration};
+use std::sync::mpsc;
+use std::thread;
+use std::time::Duration;
 
 fn main() {
-    let handler = thread::spawn(|| {
-        for i in 1..10 {
-            println!("The number from spawned thread: {}", i);
-            thread::sleep(Duration::from_millis(1));
+    let (tx, rx) = mpsc::channel();
+
+    // cloning tx for the second thread to create multiple transmitters
+    let tx2 = tx.clone();
+
+    // create another thread that will send a message to main thread
+    thread::spawn(move || {
+        // let msg = String::from("hi");
+        // tx.send(msg).unwrap();
+
+        let vals = vec![
+            String::from("hi"),
+            String::from("from"),
+            String::from("the "),
+            String::from("thread1"),
+        ];
+
+        for val in vals {
+            tx.send(val).unwrap();
+            thread::sleep(Duration::from_secs(1));
         }
     });
 
-    // this will block the main thread from finishing until handler gets finished
-    // when main thread finishes, all the other threads finish
-    // the position where join is called can effect the running of the process
-    handler.join().unwrap();
+    // create another thread that will send a message to main thread
+    thread::spawn(move || {
+        // let msg = String::from("hi");
+        // tx.send(msg).unwrap();
 
-    for i in 1..5 {
-        println!("The number from main thread: {}", i);
-        thread::sleep(Duration::from_millis(1));
-    }
+        let vals = vec![
+            String::from("more"),
+            String::from("messages"),
+            String::from("for"),
+            String::from("you"),
+        ];
 
-    let v = vec![1, 2, 3];
-
-    // closure may outlive the current function, but it borrows `v`, which is owned by the current function
-    // may outlive borrowed value `v`
-    // hence we move the ownership of v to the closure using 'move'
-    let handler = thread::spawn(move || {
-        println!("{:?}", v);
+        for val in vals {
+            tx2.send(val).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
     });
+    // .rec() will block the main channel until a message is received
+    // .try_recv() will not block the channel and will return a result type immediately
+    // let received = rx.recv().unwrap();
 
-    handler.join().unwrap();
+    for received in rx {
+        println!("Got :{}", received);
+    }
 }
