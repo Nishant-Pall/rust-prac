@@ -1,21 +1,31 @@
-use std::rc::Rc;
-
-enum List {
-    Cons(i32, Rc<List>),
-    Nil,
-}
-
-use crate::List::{Cons, Nil};
+use std::{thread, time::Duration};
 
 fn main() {
-    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let handler = thread::spawn(|| {
+        for i in 1..10 {
+            println!("The number from spawned thread: {}", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
 
-    println!("{}", Rc::strong_count(&a));
-    let b = Cons(3, Rc::clone(&a));
-    {
-        let c = Cons(4, Rc::clone(&a));
-        println!("{}", Rc::strong_count(&a));
+    // this will block the main thread from finishing until handler gets finished
+    // when main thread finishes, all the other threads finish
+    // the position where join is called can effect the running of the process
+    handler.join().unwrap();
+
+    for i in 1..5 {
+        println!("The number from main thread: {}", i);
+        thread::sleep(Duration::from_millis(1));
     }
 
-    println!("{}", Rc::strong_count(&a));
+    let v = vec![1, 2, 3];
+
+    // closure may outlive the current function, but it borrows `v`, which is owned by the current function
+    // may outlive borrowed value `v`
+    // hence we move the ownership of v to the closure using 'move'
+    let handler = thread::spawn(move || {
+        println!("{:?}", v);
+    });
+
+    handler.join().unwrap();
 }
