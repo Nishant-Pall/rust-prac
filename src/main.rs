@@ -1,53 +1,33 @@
-use std::sync::mpsc;
+use std::sync::{Arc, Mutex};
 use std::thread;
-use std::time::Duration;
 
 fn main() {
-    let (tx, rx) = mpsc::channel();
+    // let m = Mutex::new(5);
+    // {
+    //     // locking the m variable
+    //     let mut num = m.lock().unwrap();
+    //     *num = 6;
+    // }
+    // println!("{:?}", m);
 
-    // cloning tx for the second thread to create multiple transmitters
-    let tx2 = tx.clone();
+    let counter = Arc::new(Mutex::new(0));
 
-    // create another thread that will send a message to main thread
-    thread::spawn(move || {
-        // let msg = String::from("hi");
-        // tx.send(msg).unwrap();
+    let mut handler = vec![];
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
 
-        let vals = vec![
-            String::from("hi"),
-            String::from("from"),
-            String::from("the "),
-            String::from("thread1"),
-        ];
+            *num += 1;
+        });
 
-        for val in vals {
-            tx.send(val).unwrap();
-            thread::sleep(Duration::from_secs(1));
-        }
-    });
-
-    // create another thread that will send a message to main thread
-    thread::spawn(move || {
-        // let msg = String::from("hi");
-        // tx.send(msg).unwrap();
-
-        let vals = vec![
-            String::from("more"),
-            String::from("messages"),
-            String::from("for"),
-            String::from("you"),
-        ];
-
-        for val in vals {
-            tx2.send(val).unwrap();
-            thread::sleep(Duration::from_secs(1));
-        }
-    });
-    // .rec() will block the main channel until a message is received
-    // .try_recv() will not block the channel and will return a result type immediately
-    // let received = rx.recv().unwrap();
-
-    for received in rx {
-        println!("Got :{}", received);
+        handler.push(handle);
     }
+
+    // block main thread until handle is finished
+    for handle in handler {
+        handle.join().unwrap()
+    }
+
+    println!("{}", counter.lock().unwrap())
 }
