@@ -1,33 +1,38 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+use std::vec;
+
+use rust_prac::{Button, Draw, Screen};
+
+struct SelectBox {
+    pub width: u32,
+    pub height: u32,
+    pub options: Vec<String>,
+}
+
+impl Draw for SelectBox {
+    fn draw(&self) {
+        // draw selectbox
+    }
+}
 
 fn main() {
-    // let m = Mutex::new(5);
-    // {
-    //     // locking the m variable
-    //     let mut num = m.lock().unwrap();
-    //     *num = 6;
-    // }
-    // println!("{:?}", m);
+    let screen = Screen {
+        components: vec![
+            Box::new(SelectBox {
+                width: 100,
+                height: 100,
+                options: vec![
+                    String::from("Yes"),
+                    String::from("No"),
+                    String::from("Maybe"),
+                ],
+            }),
+            Box::new(Button {
+                width: 100,
+                height: 100,
+                label: String::from("ok"),
+            }),
+        ],
+    };
 
-    let counter = Arc::new(Mutex::new(0));
-
-    let mut handler = vec![];
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = thread::spawn(move || {
-            let mut num = counter.lock().unwrap();
-
-            *num += 1;
-        });
-
-        handler.push(handle);
-    }
-
-    // block main thread until handle is finished
-    for handle in handler {
-        handle.join().unwrap()
-    }
-
-    println!("{}", counter.lock().unwrap())
+    screen.run();
 }
